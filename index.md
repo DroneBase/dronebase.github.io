@@ -6,24 +6,46 @@ base_url: "./"
 
 ##App Authentication
 
-The DroneBase API uses Header or HTTP Basic Authentication to verify identity. For initial creation of both pilots and clients, an app api token is required.
-
-To interact with the api as a Pilot ot a Client, you will need both an api key and email. It is used in the following format: `[email]:[api-token]`
+The DroneBase API uses Header Authorization to verify identity.
 
 ```bash
-curl -u [api-token]:x https://api.dronebase.com/[end-point]
+curl -H 'X-Api-Token: [api-token]' https://api.dronebase.com/[end-point]
 ```
-or
+
+##Client Authorization
 
 ```bash
-curl https://[api-token]:x@api.dronebase.com/[end-point]
+curl -H "Authorization: Token token=[client_api_key], email=[client_email]" \
+  https://api.dronebase.com/clients/[end-point]
 ```
 
-or
+##Authentication and Authorization flow
+
+First thing we need is a client, pilot or admin credentials.
+We then need to post them to the server which will return an client object.
 
 ```bash
-curl -H 'X-Api-Token:[api-token]' https://api.dronebase.com/<end-point>
+curl -H "X-Api-Token: bTKW0Hmqhq0Ab464vvJe24w" \
+  --data "client[email]=[client_email]&client[password]=[client_password]" \
+  https://api.dronebase.com:3000/v1/authenticate
 ```
+
+Which would return a client object
+
+```json
+{
+  "client": {
+    "first_name": "client_first_name",
+    "last_name" : "client_last_name",
+    "email":"client_email",
+    "api_key":"client_api_key"
+  }
+}
+```
+
+Any subsequent requests would then be scoped by the user type namespace with the email and api_key included in the headers.
+
+
 
 ##Request & Response Format
 
