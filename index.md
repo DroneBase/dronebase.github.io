@@ -17,7 +17,7 @@ curl https://api.dronebase.com/mission-types \
 
 ```bash
 curl https://api.dronebase.com/clients/missions \
-  -H "Authorization: Token token=bTKW0Hmqhq0Ab464vvJe24w, email=larry@dronebase.com"
+   -H "Authorization: Token token=bTKW0Hmqhq0Ab464vvJe24w, email=larry@dronebase.com"
 ```
 
 ##Authentication and Authorization flow
