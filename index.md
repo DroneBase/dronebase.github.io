@@ -9,14 +9,15 @@ base_url: "./"
 The DroneBase API uses Header Authorization to verify identity.
 
 ```bash
-curl -H 'X-Api-Token: [api-token]' https://api.dronebase.com/[end-point]
+curl https://api.dronebase.com/mission-types \
+   -H 'X-Api-Token: bTKW0Hmqhq0Abs64vsvJe24sw'
 ```
 
 ##Client Authorization
 
 ```bash
-curl -H "Authorization: Token token=[client_api_key], email=[client_email]" \
-  https://api.dronebase.com/clients/[end-point]
+curl https://api.dronebase.com/clients/missions \
+  -H "Authorization: Token token=bTKW0Hmqhq0Ab464vvJe24w, email=larry@dronebase.com"
 ```
 
 ##Authentication and Authorization flow
@@ -25,11 +26,11 @@ First thing we need is a client, pilot or admin credentials.
 We then need to post them to the server which will return an client object.
 
 ```bash
-curl -H "X-Api-Token: bTKW0Hmqhq0Ab464vvJe24w" \
-  --data "client[email]=[client_email]&client[password]=[client_password]" \
-  https://api.dronebase.com:3000/v1/authenticate
+curl https://api.dronebase.com:3000/v1/authenticate \
+   -H "X-Api-Token: bTKW0Hmqhq0Ab464vvJe24w" \
+   -d client[email]=larry@dronebase.com \
+   -d client[password]=hard_password
 ```
-
 Which would return a client object
 
 ```json
